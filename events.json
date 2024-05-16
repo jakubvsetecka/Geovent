@@ -1,0 +1,18 @@
+[
+  {
+    "id": "1",
+    "name": "Event 1",
+    "date": "2024-05-20",
+    "time": "14:00",
+    "location": "Stephansplatz, Vienna",
+    "mapUrl": "https://www.google.com/maps/place/Stephansplatz,+Vienna"
+  },
+  {
+    "id": "3",
+    "name": "a",
+    "date": "2024-05-20",
+    "time": "14:00",
+    "location": "Brno",
+    "mapUrl": "https://www.google.cz/maps/place/Brno/@49.202153,16.4955605,12z/data=!3m1!4b1!4m6!3m5!1s0x4712943ac03f5111:0x400af0f6614b1b0!8m2!3d49.1950602!4d16.6068371!16zL20vMGZzX3M?hl=cs&entry=ttu"
+  }
+]

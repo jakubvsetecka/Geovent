@@ -1,74 +1,83 @@
+require('dotenv').config();
 const { Client, GatewayIntentBits } = require('discord.js');
-const axios = require('axios');
+const fs = require('fs');
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent] });
 
 const botToken = process.env.DISCORD_BOT_TOKEN;
-const googleMapsApiKey = process.env.GOOGLE_MAPS_API_KEY;
-const maxRequestsPerMinute = 50; // Adjust according to your expected usage
-let requestCount = 0;
-let resetTime = Date.now() + 60000; // Reset every minute
 
-const events = [
-    {
-        name: "Event 1",
-        date: "2024-05-20",
-        time: "14:00",
-        location: "Stephansplatz, Vienna"
-    },
-    {
-        name: "Event 2",
-        date: "2024-05-21",
-        time: "10:00",
-        location: "Schönbrunn Palace, Vienna"
-    }
-];
+let events = require('./events.json');
+const eventList = events.map(event => `${event.name} - ${event.date} at ${event.time} - ${event.location}\nMap: ${event.mapUrl}`).join('\n');
+
+const updateEvents = () => {
+    eventList = events.map(event => `${event.name} - ${event.date} at ${event.time} - ${event.location}\nMap: ${event.mapUrl}`).join('\n');
+}
+
+const saveEvents = () => {
+    fs.writeFileSync('./events.json', JSON.stringify(events, null, 2));
+    updateEvents();
+};
+
+const generateUniqueId = () => {
+    const maxId = events.reduce((max, event) => Math.max(max, parseInt(event.id, 10)), 0);
+    return (maxId + 1).toString();
+};
+
 
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
 });
 
-client.on('messageCreate', async (message) => {
-    console.log(`Received message: ${message.content}`);
+client.on('interactionCreate', async interaction => {
+    if (!interaction.isCommand()) return;
 
-    // Ignore messages from bots
-    if (message.author.bot) return;
+    const { commandName, options } = interaction;
 
-    if (message.content.startsWith('!events')) {
-        console.log('!events command received');
-        const eventList = events.map(event => `${event.name} - ${event.date} at ${event.time} - ${event.location}`).join('\n');
-        message.channel.send(`Here are the events:\n${eventList}`);
-    }
-
-    if (message.content.startsWith('!map')) {
-        console.log('!map command received');
-        const args = message.content.split(' ');
-        const eventIndex = parseInt(args[1]);
-        if (isNaN(eventIndex) || eventIndex < 0 || eventIndex >= events.length) {
-            message.channel.send('Invalid event index.');
+    if (commandName === 'events') {
+        await interaction.reply(`Here are the events:\n${eventList}`);
+    } else if (commandName === 'map') {
+        const eventIndex = options.getInteger('event_index');
+        if (eventIndex < 0 || eventIndex >= events.length) {
+            await interaction.reply('Invalid event index.');
             return;
         }
 
-        if (Date.now() > resetTime) {
-            requestCount = 0;
-            resetTime = Date.now() + 60000;
+        const event = events[eventIndex];
+        await interaction.reply(`${event.name} - ${event.date} at ${event.time} - ${event.location}\nMap: ${event.mapUrl}`);
+    } else if (commandName === 'mapdate') {
+        const date = options.getString('date');
+        const filteredEvents = events.filter(event => event.date === date);
+        if (filteredEvents.length === 0) {
+            await interaction.reply('No events found for the specified date.');
+            return;
         }
 
-        if (requestCount < maxRequestsPerMinute) {
-            const event = events[eventIndex];
-            try {
-                const response = await axios.get(`https://maps.googleapis.com/maps/api/staticmap?center=${encodeURIComponent(event.location)}&zoom=14&size=600x300&maptype=roadmap&markers=color:red%7Clabel:S%7C${encodeURIComponent(event.location)}&key=${googleMapsApiKey}`);
-                const mapUrl = response.config.url;
-                message.channel.send(`${event.name} - ${event.date} at ${event.time} - ${event.location}\nMap: ${mapUrl}`);
-                requestCount++;
-            } catch (error) {
-                console.error('Error fetching map:', error);
-                message.channel.send('Error fetching map. Please try again later.');
-            }
-        } else {
-            message.channel.send('Rate limit exceeded. Please try again later.');
+        const eventDetails = filteredEvents.map(event => `${event.name} - ${event.date} at ${event.time} - ${event.location}\nMap: ${event.mapUrl}`).join('\n');
+        await interaction.reply(`Events on ${date}:\n${eventDetails}`);
+    } else if (commandName === 'addevent') {
+        const name = options.getString('name');
+        const date = options.getString('date');
+        const time = options.getString('time');
+        const location = options.getString('location');
+        const mapUrl = options.getString('mapurl');
+
+        const id = generateUniqueId();
+        const newEvent = { id, name, date, time, location, mapUrl };
+        events.push(newEvent);
+        saveEvents();
+        await interaction.reply(`Event added: ${name} on ${date} at ${time}, location: ${location}`);
+    } else if (commandName === 'removeevent') {
+        const id = options.getString('id');
+        const eventIndex = events.findIndex(event => event.id === id);
+
+        if (eventIndex === -1) {
+            await interaction.reply(`Event with ID ${id} not found.`);
+            return;
         }
+
+        events.splice(eventIndex, 1);
+        saveEvents();
+        await interaction.reply(`Event with ID ${id} removed.`);
     }
 });
-
 
 client.login(botToken);

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Event Map</title>
+    <style>
+        #map {
+            height: 100%;
+        }
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+    <input type="date" id="event-date" />
+    <button onclick="showEvents()">Show Events</button>
+    <div id="map"></div>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY"></script>
+    <script>
+        const events = [
+            {
+                name: "Event 1",
+                date: "2024-05-20",
+                time: "14:00",
+                location: { lat: 48.2082, lng: 16.3738 }, // Stephansplatz, Vienna
+            },
+            {
+                name: "Event 2",
+                date: "2024-05-21",
+                time: "10:00",
+                location: { lat: 48.1845, lng: 16.3122 }, // Schönbrunn Palace, Vienna
+            },
+        ];
+
+        let map;
+
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: 48.2082, lng: 16.3738 },
+                zoom: 12,
+            });
+        }
+
+        function showEvents() {
+            const date = document.getElementById('event-date').value;
+            const filteredEvents = events.filter(event => event.date === date);
+
+            filteredEvents.forEach(event => {
+                const marker = new google.maps.Marker({
+                    position: event.location,
+                    map: map,
+                    title: event.name,
+                });
+
+                const infowindow = new google.maps.InfoWindow({
+                    content: `<div><strong>${event.name}</strong><br>${event.date} at ${event.time}</div>`,
+                });
+
+                marker.addListener('click', () => {
+                    infowindow.open(map, marker);
+                });
+            });
+        }
+
+        window.onload = initMap;
+    </script>
+</body>
+</html>
