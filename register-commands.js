@@ -3,78 +3,139 @@ const { REST, Routes } = require('discord.js');
 
 const commands = [
     {
-        name: 'events',
-        description: 'List all events'
-    },
-    {
-        name: 'map',
-        description: 'Show map for a specific event',
+        name: 'event',
+        description: 'Manage events',
         options: [
             {
-                name: 'event_index',
-                type: 4, // INTEGER type
-                description: 'The index of the event',
-                required: true
-            }
-        ]
-    },
-    {
-        name: 'mapdate',
-        description: 'Show map for events on a specific date',
-        options: [
-            {
-                name: 'date',
-                type: 3, // STRING type
-                description: 'The date in YYYY-MM-DD format',
-                required: true
-            }
-        ]
-    },
-    {
-        name: 'addevent',
-        description: 'Add a new event',
-        options: [
-            {
-                name: 'name',
-                type: 3, // STRING type
-                description: 'Name of the event',
-                required: true
+                name: 'create',
+                description: 'Create a new event',
+                type: 1, // SUB_COMMAND
+                options: [
+                    {
+                        name: 'name',
+                        type: 3, // STRING type
+                        description: 'Name of the event',
+                        required: true
+                    },
+                    {
+                        name: 'description',
+                        type: 3, // STRING type
+                        description: 'Name of the event',
+                        required: true
+                    },
+                    {
+                        name: 'date',
+                        type: 3, // STRING type
+                        description: 'Date of the event (YYYY-MM-DD)',
+                        required: true
+                    },
+                    {
+                        name: 'time',
+                        type: 3, // STRING type
+                        description: 'Time of the event',
+                        required: true
+                    },
+                    {
+                        name: 'location',
+                        type: 3, // STRING type
+                        description: 'Location of the event',
+                        required: true
+                    },
+                    {
+                        name: 'price',
+                        type: 3, // STRING type
+                        description: 'Google Maps URL of the event location',
+                        required: false
+                    }
+                ]
             },
             {
-                name: 'date',
-                type: 3, // STRING type
-                description: 'Date of the event (YYYY-MM-DD)',
-                required: true
+                name: 'list',
+                description: 'List all upcoming events',
+                type: 1, // SUB_COMMAND
+                options: [
+                    {
+                        name: 'date',
+                        type: 3, // STRING type
+                        description: 'Date to filter events by (YYYY-MM-DD)',
+                        required: false
+                    }
+                ]
             },
             {
-                name: 'time',
-                type: 3, // STRING type
-                description: 'Time of the event',
-                required: true
+                name: 'edit',
+                description: 'Edit an existing event',
+                type: 1, // SUB_COMMAND
+                options: [
+                    {
+                        name: 'id',
+                        type: 3, // STRING type
+                        description: 'ID of the event to edit',
+                        required: true
+                    },
+                    {
+                        name: 'name',
+                        type: 3, // STRING type
+                        description: 'New name of the event',
+                        required: false
+                    },
+                    {
+                        name: 'description',
+                        type: 3, // STRING type
+                        description: 'New name of the event',
+                        required: false
+                    },
+                    {
+                        name: 'date',
+                        type: 3, // STRING type
+                        description: 'New date of the event (YYYY-MM-DD)',
+                        required: false
+                    },
+                    {
+                        name: 'time',
+                        type: 3, // STRING type
+                        description: 'New time of the event',
+                        required: false
+                    },
+                    {
+                        name: 'location',
+                        type: 3, // STRING type
+                        description: 'New location of the event',
+                        required: false
+                    },
+                    {
+                        name: 'price',
+                        type: 3, // STRING type
+                        description: 'New Google Maps URL of the event location',
+                        required: false
+                    }
+                ]
             },
             {
-                name: 'location',
-                type: 3, // STRING type
-                description: 'Location of the event',
-                required: true
+                name: 'delete',
+                description: 'Delete an event',
+                type: 1, // SUB_COMMAND
+                options: [
+                    {
+                        name: 'id',
+                        type: 3, // STRING type
+                        description: 'ID of the event to delete',
+                        required: true
+                    }
+                ]
             },
             {
-                name: 'mapurl',
-                type: 3, // STRING type
-                description: 'Google Maps URL of the event location',
-                required: true
-            }
-        ]
-    },
-    {
-        name: 'removeevent',
-        description: 'Remove an event by ID',
-        options: [
-            {
-                name: 'id',
-                type: 3, // STRING type
-                description: 'Unique ID of the event to remove',
-                required: true
+                name: 'navigate',
+                description: 'Navigate to an event',
+                type: 1, // SUB_COMMAND
+                options: [
+                    {
+                        name: 'id',
+                        type: 3, // STRING type
+                        description: 'ID of the event to navigate to',
+                        required: true
+                    }
+                ]
             }
         ]
     }
@@ -87,7 +148,7 @@ const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_BOT_TOKEN)
         console.log('Started refreshing application (/) commands.');
 
         await rest.put(
-            Routes.applicationCommands(process.env.CLIENT_ID),
+            Routes.applicationGuildCommands(process.env.CLIENT_ID, process.env.GUILD_ID),
             { body: commands }
         );
 

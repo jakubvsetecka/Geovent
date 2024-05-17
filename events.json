@@ -1,18 +1,45 @@
 [
-  {
-    "id": "1",
-    "name": "Event 1",
-    "date": "2024-05-20",
-    "time": "14:00",
-    "location": "Stephansplatz, Vienna",
-    "mapUrl": "https://www.google.com/maps/place/Stephansplatz,+Vienna"
-  },
-  {
-    "id": "3",
-    "name": "a",
-    "date": "2024-05-20",
-    "time": "14:00",
-    "location": "Brno",
-    "mapUrl": "https://www.google.cz/maps/place/Brno/@49.202153,16.4955605,12z/data=!3m1!4b1!4m6!3m5!1s0x4712943ac03f5111:0x400af0f6614b1b0!8m2!3d49.1950602!4d16.6068371!16zL20vMGZzX3M?hl=cs&entry=ttu"
-  }
+    {
+        "id": "1",
+        "name": "International Documentary Film Festival",
+        "date": "2024-05-18",
+        "location": "Votiv and De France cinema, Vienna",
+        "description": "This Friday there will be the kick-off of the international film festival in Vienna. There will be various documentaries shown in both the Votiv as well as the De France cinema. https://www.ethnocineca.at/",
+        "price": "€9"
+    },
+    {
+        "id": "11",
+        "name": "International Documentary Film Festival",
+        "date": "2024-05-19",
+        "location": "Votiv and De France cinema, Vienna",
+        "description": "This Friday there will be the kick-off of the international film festival in Vienna. There will be various documentaries shown in both the Votiv as well as the De France cinema. https://www.ethnocineca.at/",
+        "price": "€9"
+    },
+    {
+        "id": "2",
+        "name": "Asian & Austrian street food and culture festival",
+        "date": "2024-05-18",
+        "time": "10:00",
+        "location": "Donauinsel, Vienna",
+        "description": "Potentially a strange mixture of different cultures, food and traditions. At the same time could be pretty cool and refreshing to combine all of this into one street food festival! Either way, it’s happening on the Donauinsel, so if the weather is nice, you can definitely enjoy this as a small trip! 🙂 https://www.facebook.com/events/3243826995913272/",
+        "price": "Free"
+    },
+    {
+        "id": "12",
+        "name": "Asian & Austrian street food and culture festival",
+        "date": "2024-05-19",
+        "time": "10:00",
+        "location": "Donauinsel, Vienna",
+        "description": "Potentially a strange mixture of different cultures, food and traditions. At the same time could be pretty cool and refreshing to combine all of this into one street food festival! Either way, it’s happening on the Donauinsel, so if the weather is nice, you can definitely enjoy this as a small trip! 🙂 https://www.facebook.com/events/3243826995913272/",
+        "price": "Free"
+    },
+    {
+        "id": "3",
+        "name": "Open Air Rave",
+        "date": "2024-05-19",
+        "time": "15:00",
+        "location": "Prater, Vienna",
+        "description": "This Sunday there are a couple of nice raves! First up, at Prater with ‘Du Tanzt Mich Mal’. They will play a mixture of house, minimal, acid and downtempo. https://www.facebook.com/events/297441140121448",
+        "price": "€10"
+    }
 ]
