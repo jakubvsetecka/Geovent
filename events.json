@@ -41,5 +41,95 @@
         "location": "Prater, Vienna",
         "description": "This Sunday there are a couple of nice raves! First up, at Prater with ‘Du Tanzt Mich Mal’. They will play a mixture of house, minimal, acid and downtempo. https://www.facebook.com/events/297441140121448",
         "price": "€10"
+    },
+    {
+        "id": "21",
+        "name": "Wine & Dance",
+        "date": "2024-05-18",
+        "time": "15:00",
+        "location": "Volksgarten, Vienna",
+        "description": "House music event at Volksgarten. https://www.facebook.com/events/7464690383611552",
+        "price": "Unknown"
+    },
+    {
+        "id": "22",
+        "name": "Concert Mochana",
+        "date": "2024-05-18",
+        "time": "TBD",
+        "location": "Kramladen, Vienna",
+        "description": "Deutschpop concert at Kramladen. https://www.instagram.com/p/C4V9E_oMOZ9/",
+        "price": "Unknown"
+    },
+    {
+        "id": "23",
+        "name": "17 Years Viper Room",
+        "date": "2024-05-18",
+        "time": "TBD",
+        "location": "Viper Room, Vienna",
+        "description": "Rock, Punk, 80s music event celebrating 17 years of Viper Room. https://www.facebook.com/events/2229314794086864",
+        "price": "Unknown"
+    },
+    {
+        "id": "24",
+        "name": "Free OpenAir Rave",
+        "date": "2024-05-18",
+        "time": "TBD",
+        "location": "Himmerl & Wasser, Vienna",
+        "description": "Electronic music event at Himmerl & Wasser. https://www.facebook.com/events/1857499748036625",
+        "price": "Free"
+    },
+    {
+        "id": "25",
+        "name": "Cosmic Soul",
+        "date": "2024-05-19",
+        "time": "TBD",
+        "location": "Pratersauna, Vienna",
+        "description": "Sex positive, techno, psytrance. https://www.facebook.com/events/753237120320789",
+        "price": "Unknown"
+    },
+    {
+        "id": "26",
+        "name": "Steve Hope",
+        "date": "2024-05-19",
+        "time": "TBD",
+        "location": "Vienna Hope Beach Club, Vienna",
+        "description": "Electronic. https://www.facebook.com/events/1440090853257938",
+        "price": "Unknown"
+    },
+    {
+        "id": "27",
+        "name": "Live Music (Tobias Kirchebner)",
+        "date": "2024-05-19",
+        "time": "TBD",
+        "location": "Gleis Garten, Vienna",
+        "description": "Live concert. https://www.gleisgarten.com/events/live-musik-tobias-kirchebner",
+        "price": "Unknown"
+    },
+    {
+        "id": "28",
+        "name": "Felix Jaehn",
+        "date": "2024-05-19",
+        "time": "TBD",
+        "location": "O der Klub, Vienna",
+        "description": "House. https://www.facebook.com/events/709764144702921",
+        "price": "Unknown"
+    },
+    {
+        "id": "29",
+        "name": "Heaven Vienna (Orange Edition)",
+        "date": "2024-05-19",
+        "time": "TBD",
+        "location": "The Loft, Vienna",
+        "description": "Pop, House. https://www.facebook.com/events/1866522953860626",
+        "price": "Unknown"
+    },
+    {
+        "id": "30",
+        "name": "Kein Sonntag Ohne Techno",
+        "date": "2024-05-19",
+        "time": "TBD",
+        "location": "Schloss Cobenzl, Vienna",
+        "description": "Techno. https://www.facebook.com/events/454618860253817/",
+        "price": "Unknown"
     }
 ]
